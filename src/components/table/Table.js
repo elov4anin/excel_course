@@ -1,120 +1,36 @@
 import {ExcelComponent} from '@core/ExcelComponent'
 import {createTable} from '@/components/table/table.template';
+import {resizeHandler} from '@/components/table/table.resize';
+import {shouldResize} from '@/components/table/table.functions';
 
 export class Table extends ExcelComponent {
     static className = 'excel__table'
+
+    constructor($root) {
+        super($root, {
+            listeners: ['mousedown']
+        });
+    }
+
     toHTML() {
         return createTable(20);
     }
-   /* toHTML() {
-        return `<div class="row">
 
-        <div class="row-info"></div>
+    onClick() {
+        console.log('click')
+    }
 
-        <div class="row-data">
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
-          <div class="column">
-            A
-          </div>
-          <div class="column">
-            B
-          </div>
-          <div class="column">
-            C
-          </div>
+    onMousedown(event) {
+        if (shouldResize(event)) {
+            resizeHandler(this.$root, event)
+        }
+    }
 
-        </div>
+    onMousemove() {
+        console.log('mousemove')
+    }
 
-      </div>  <div class="row">
-        <div class="row-info">
-          1
-        </div>
-
-        <div class="row-data">
-          <div class="cell selected" contenteditable="">A1</div>
-          <div class="cell" contenteditable="">B2</div>
-          <div class="cell" contenteditable="">C3</div>
-        </div>
-      </div>`
-    }*/
+    onMouseup() {
+        console.log('mouseup')
+    }
 }
