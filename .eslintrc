@@ -12,7 +12,8 @@
     "max-len": "off",
     "require-jsdoc": "off",
     "linebreak-style": "off",
-    "valid-jsdoc": "off"
+    "valid-jsdoc": "off",
+    "arrow-parens": "off"
   },
   "extends": ["eslint:recommended", "google"]
 }

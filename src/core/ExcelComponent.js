@@ -5,8 +5,10 @@ export class ExcelComponent extends DomListener {
         super($root, options.listeners)
         this.name = options.name || ''
         this.emitter = options.emitter
+        this.store = options.store
         this.unsubscribers = []
         this.prepare()
+        this.storeSub = null
     }
     /**
      * Возращает шаблон копмонента
@@ -24,6 +26,13 @@ export class ExcelComponent extends DomListener {
         const unsubs = this.emitter.subscribe(event, fn)
         this.unsubscribers.push(unsubs)
     }
+    $dispatch(action) {
+        this.store.dispatch(action)
+    }
+
+    $subscribe(fn) {
+        this.storeSub = this.store.subscribe(fn)
+    }
 
     init() {
         this.initDOMListeners()
@@ -32,6 +41,7 @@ export class ExcelComponent extends DomListener {
     destroy() {
         this.removeDOMListeners()
         this.unsubscribers.forEach((unsubs) => unsubs())
+        this.storeSub.unsubscribe()
     }
 
     prepare() {
