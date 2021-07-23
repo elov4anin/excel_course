@@ -5,10 +5,10 @@ export class ExcelComponent extends DomListener {
         super($root, options.listeners)
         this.name = options.name || ''
         this.emitter = options.emitter
+        this.subscribe = options.subscribe || []
         this.store = options.store
         this.unsubscribers = []
         this.prepare()
-        this.storeSub = null
     }
     /**
      * Возращает шаблон копмонента
@@ -30,8 +30,13 @@ export class ExcelComponent extends DomListener {
         this.store.dispatch(action)
     }
 
-    $subscribe(fn) {
-        this.storeSub = this.store.subscribe(fn)
+    // Изменения по тем полям на которые подписан компонент
+    storeChanged() {
+
+    }
+
+    isWatching(key) {
+        return this.subscribe.includes(key)
     }
 
     init() {
@@ -41,7 +46,6 @@ export class ExcelComponent extends DomListener {
     destroy() {
         this.removeDOMListeners()
         this.unsubscribers.forEach((unsubs) => unsubs())
-        this.storeSub.unsubscribe()
     }
 
     prepare() {
