@@ -17,12 +17,10 @@ export class ExcelPage extends Page {
     getRoot() {
         const params = this.params ? this.params : Date.now().toString()
         const state = storage(storageName(params))
-        console.log('APP state 1', state)
         const store = createStore(rootReducer, normalizeInitialState(state))
 
         const stateListener = debounce(state => {
             storage(storageName(params), state)
-            console.log('APP state', state)
         }, 300)
         store.subscribe(stateListener)
 
